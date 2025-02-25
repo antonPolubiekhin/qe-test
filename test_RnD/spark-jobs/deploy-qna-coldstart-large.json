@@ -1,0 +1,10 @@
+{
+  "type" : "argo-deploy-model",
+  "id" : "deploy-qna-coldstart-large",
+  "deployModelName" : "qna-coldstart-large",
+  "modelReplicas" : 1,
+  "modelDockerImage" : "qna-coldstart-large:v1.1",
+  "modelDockerRepo" : "lucidworks",
+  "columnNames" : "[vector, compressed_vector]",
+  "workflowName" : "argo-deploy-model-workflow"
+}

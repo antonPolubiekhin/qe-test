@@ -1,0 +1,21 @@
+{
+  "type" : "sip",
+  "id" : "test_RnD_phrase_extraction",
+  "trainingDataFilterQuery" : "*:*",
+  "randomSeed" : 8180,
+  "analyzerConfig" : "{ \"analyzers\": [{ \"name\": \"StdTokLowerStop\",\"charFilters\": [ { \"type\": \"htmlstrip\" } ],\"tokenizer\": { \"type\": \"standard\" },\"filters\": [{ \"type\": \"lowercase\" }] }],\"fields\": [{ \"regex\": \".+\", \"analyzer\": \"StdTokLowerStop\" } ]}",
+  "trainingCollection" : "test_RnD_signals",
+  "outputCollection" : "test_RnD_query_rewrite_staging",
+  "overwriteOutput" : true,
+  "fieldToVectorize" : "query",
+  "trainingDataSamplingFraction" : 1.0,
+  "ngramSize" : 3,
+  "minmatch" : 100,
+  "attachPhrases" : false,
+  "sparkPartitions" : 200,
+  "enableAutoPublish" : false,
+  "dataFormat" : "solr",
+  "dataOutputFormat" : "solr",
+  "sparkSQL" : "SELECT * from spark_input",
+  "sourceFields" : "query"
+}

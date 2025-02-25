@@ -1,0 +1,10 @@
+{
+  "type" : "argo-deploy-model",
+  "id" : "bert-german",
+  "deployModelName" : "bert-german",
+  "modelReplicas" : 1,
+  "modelDockerImage" : "vishnucramesh/seldon-core-bert-german",
+  "modelDockerRepo" : "registry.hub.docker.com",
+  "columnNames" : "[output1, output2]",
+  "workflowName" : "argo-deploy-model-workflow"
+}

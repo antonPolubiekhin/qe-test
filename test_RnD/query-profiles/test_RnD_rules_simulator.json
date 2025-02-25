@@ -1,0 +1,23 @@
+{
+  "id" : "test_RnD_rules_simulator",
+  "queryPipeline" : "test_RnD",
+  "collection" : "test_RnD",
+  "searchHandler" : "/select",
+  "params" : [ {
+    "key" : "lw.rules.simulate",
+    "value" : "test_RnD_query_rewrite_staging",
+    "policy" : "default"
+  }, {
+    "key" : "lw.rules.debug",
+    "value" : "1",
+    "policy" : "default"
+  }, {
+    "key" : "lw.tagger.debug",
+    "value" : "1",
+    "policy" : "default"
+  }, {
+    "key" : "lw.skip_response_signal",
+    "value" : "1",
+    "policy" : "default"
+  } ]
+}

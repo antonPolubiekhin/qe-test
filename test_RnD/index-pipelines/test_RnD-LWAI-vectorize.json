@@ -1,0 +1,51 @@
+{
+  "id" : "test_RnD-LWAI-vectorize",
+  "stages" : [ {
+    "id" : "283274ad-b380-4259-bdcd-c6c59ada568f",
+    "translationMappings" : [ ],
+    "retentionMappings" : [ ],
+    "updateMappings" : [ ],
+    "unmappedRule" : {
+      "keep" : true,
+      "delete" : false,
+      "fieldToMoveValuesTo" : "",
+      "fieldToCopyValuesTo" : "",
+      "valueToAddToUnmappedFields" : "",
+      "valueToSetOnUnmappedFields" : ""
+    },
+    "reservedFieldsMappingAllowed" : false,
+    "type" : "field-mapping",
+    "skip" : false
+  }, {
+    "id" : "335d16e1-4db4-422a-8f94-b86d227449c0",
+    "duplicateSingleValuedFields" : false,
+    "fieldsToExclude" : [ ],
+    "advancedTextFieldsIndexing" : true,
+    "maxTextLengthForAdvancedIndexing" : 100,
+    "type" : "solr-dynamic-field-name-mapping",
+    "skip" : false
+  }, {
+    "id" : "d19c0cba-01bb-4ff2-8982-c5a57e62f5b4",
+    "accountName" : "change-me",
+    "modelType" : "e5-small-v2",
+    "failOnError" : false,
+    "sourceFieldName" : "body_t",
+    "destinationFieldName" : "body_t_384v",
+    "useCaseConfig" : [ ],
+    "modelConfig" : [ ],
+    "type" : "field-vectorization-ml-platform",
+    "skip" : false,
+    "modelInputFieldName" : "text"
+  }, {
+    "id" : "fecbd28d-ba1f-4452-9010-ac74285f2227",
+    "enforceSchema" : true,
+    "fieldsList" : false,
+    "dateFormats" : [ ],
+    "params" : [ ],
+    "bufferDocsForSolr" : true,
+    "allowBlacklistedRequestParameters" : false,
+    "type" : "solr-index",
+    "skip" : false
+  } ],
+  "properties" : { }
+}

@@ -1,0 +1,12 @@
+{
+  "type" : "argo-milvus-create-collections",
+  "id" : "create-milvus-collection",
+  "collections-list" : [ {
+    "milvusCollectionName" : "milvus_collection",
+    "dimension" : 512,
+    "indexFileSize" : 1024,
+    "metric" : "Inner Product"
+  } ],
+  "allow-recreate" : false,
+  "workflowName" : "argo-milvus-maintenance-workflow"
+}

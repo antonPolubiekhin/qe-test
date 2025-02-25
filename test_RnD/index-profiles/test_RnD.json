@@ -1,0 +1,7 @@
+{
+  "id" : "test_RnD",
+  "indexPipeline" : "test_RnD",
+  "collection" : "test_RnD",
+  "parser" : "test_RnD",
+  "params" : [ ]
+}

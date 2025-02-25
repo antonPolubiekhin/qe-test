@@ -1,0 +1,15 @@
+{
+  "id" : "test_RnD_user_prefs",
+  "searchClusterId" : "default",
+  "commitWithin" : 10000,
+  "features" : { },
+  "solrParams" : {
+    "name" : "test_RnD_user_prefs",
+    "numShards" : 1,
+    "replicationFactor" : 1,
+    "configTemplate" : "solr/conf/user_prefs.zip"
+  },
+  "type" : "USER_PREFS",
+  "relatedCollectionId" : "test_RnD",
+  "metadata" : { }
+}

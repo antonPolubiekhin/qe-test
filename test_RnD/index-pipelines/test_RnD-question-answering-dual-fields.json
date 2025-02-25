@@ -1,0 +1,61 @@
+{
+  "id" : "test_RnD-question-answering-dual-fields",
+  "stages" : [ {
+    "id" : "aca1d20c-1c95-4738-8e33-73423e615aa9",
+    "translationMappings" : [ ],
+    "retentionMappings" : [ ],
+    "updateMappings" : [ ],
+    "unmappedRule" : {
+      "keep" : true,
+      "delete" : false,
+      "fieldToMoveValuesTo" : "",
+      "fieldToCopyValuesTo" : "",
+      "valueToAddToUnmappedFields" : "",
+      "valueToSetOnUnmappedFields" : ""
+    },
+    "reservedFieldsMappingAllowed" : false,
+    "type" : "field-mapping",
+    "skip" : false
+  }, {
+    "id" : "d5142ad5-2e28-45c4-a4ac-c54124a110bf",
+    "duplicateSingleValuedFields" : false,
+    "fieldsToExclude" : [ ],
+    "advancedTextFieldsIndexing" : true,
+    "maxTextLengthForAdvancedIndexing" : 100,
+    "type" : "solr-dynamic-field-name-mapping",
+    "skip" : false
+  }, {
+    "id" : "b4273a1c-6ec6-4a2c-8ad3-3224bfd2a321",
+    "modelId" : "change-me",
+    "failOnError" : false,
+    "storeInContext" : false,
+    "inputScript" : "/* \nName of the document field to feed into the encoder. \n*/\nvar documentFeatureField = \"question_t\"\n\n/* \nModel input construction. \n*/\nvar modelInput = new java.util.HashMap()\nmodelInput.put(\"text\", doc.getFirstFieldValue(documentFeatureField))\nmodelInput.put(\"pipeline\", \"index\")\nmodelInput.put(\"compress\", \"true\")\nmodelInput.put(\"unidecode\", \"true\")\nmodelInput.put(\"lowercase\", \"false\")\n\nmodelInput",
+    "outputScript" : "/*\nName of the field to store the compressed encoded vector in the document.\n\nCompressed vector field will be added to the document only if `compress = \"true\"` was \npassed into the `modelInput`.\n*/\nvar compressedVectorField = \"compressed_question_vector_s\"\n\n/*\nName of the field to store the uncompressed encoded vector in the document.\n\nBy default uncompressed vector wouldn't be added to the document. \nChange `keepUncompressedVector` to true if you want to keep uncompressed vector.  \n*/\nvar keepUncompressedVector = false\nvar vectorField = \"question_vector_ds\"\n\n/*\nClustering fields that keep cluster IDs and distances to the clusters.\nNOTE: Only models from the training module will provide clustering fields. \n*/\nvar clustersField = \"question_clusters_is\"\nvar distancesField = \"question_distances_ds\"\n\n/*\nVariable `numClusters` specifies how many top clusters should be kept for the document.\nThe value should be less or equal to the value in the training configuration. \nThe default value of 1 is a good choice for most cases.\n*/\nvar numClusters = 1\n\n/*\nModel output parsing.\n*/\nif (modelOutput.containsKey(\"compressed_vector\")) {\n  doc.addField(compressedVectorField, modelOutput.get(\"compressed_vector\")[0])\n}\n\nif (keepUncompressedVector) {\n  doc.addField(vectorField, modelOutput.get(\"vector\"))\n}\n\nif (numClusters > 0 && modelOutput.containsKey(\"clusters\")) {\n  doc.addField(clustersField, modelOutput.get(\"clusters\").subList(0, numClusters))\n  doc.addField(distancesField, modelOutput.get(\"distances\").subList(0, numClusters))\n}",
+    "storePredictedFields" : false,
+    "type" : "machine-learning",
+    "skip" : false,
+    "label" : "Question Deep Encoding"
+  }, {
+    "id" : "5cd604a7-dc8c-4360-9db9-937345a447e9",
+    "modelId" : "change-me",
+    "failOnError" : false,
+    "storeInContext" : false,
+    "inputScript" : "/* \nName of the document field to feed into the encoder. \n*/\nvar documentFeatureField = \"answer_t\"\n\n/* \nModel input construction. \n*/\nvar modelInput = new java.util.HashMap()\nmodelInput.put(\"text\", doc.getFirstFieldValue(documentFeatureField))\nmodelInput.put(\"pipeline\", \"index\")\nmodelInput.put(\"compress\", \"true\")\nmodelInput.put(\"unidecode\", \"true\")\nmodelInput.put(\"lowercase\", \"false\")\n\nmodelInput",
+    "outputScript" : "/*\nName of the field to store the compressed encoded vector in the document.\n\nCompressed vector field will be added to the document only if `compress = \"true\"` was \npassed into the `modelInput`.\n*/\nvar compressedVectorField = \"compressed_answer_vector_s\"\n\n/*\nName of the field to store the uncompressed encoded vector in the document.\n\nBy default uncompressed vector wouldn't be added to the document. \nChange `keepUncompressedVector` to true if you want to keep uncompressed vector.  \n*/\nvar keepUncompressedVector = false\nvar vectorField = \"answer_vector_ds\"\n\n/*\nClustering fields that keep cluster IDs and distances to the clusters.\nNOTE: Only models from the training module will provide clustering fields. \n*/\nvar clustersField = \"answer_clusters_is\"\nvar distancesField = \"answer_distances_ds\"\n\n/*\nVariable `numClusters` specifies how many top clusters should be kept for the document.\nThe value should be less or equal to the value in the training configuration. \nThe default value of 1 is a good choice for most cases.\n*/\nvar numClusters = 1\n\n/*\nModel output parsing.\n*/\nif (modelOutput.containsKey(\"compressed_vector\")) {\n  doc.addField(compressedVectorField, modelOutput.get(\"compressed_vector\")[0])\n}\n\nif (keepUncompressedVector) {\n  doc.addField(vectorField, modelOutput.get(\"vector\"))\n}\n\nif (numClusters > 0 && modelOutput.containsKey(\"clusters\")) {\n  doc.addField(clustersField, modelOutput.get(\"clusters\").subList(0, numClusters))\n  doc.addField(distancesField, modelOutput.get(\"distances\").subList(0, numClusters))\n}",
+    "storePredictedFields" : false,
+    "type" : "machine-learning",
+    "skip" : false,
+    "label" : "Answer Deep Encoding"
+  }, {
+    "id" : "4d87c07d-eb26-44ee-8e6f-d8e3ef04f3c5",
+    "enforceSchema" : true,
+    "fieldsList" : false,
+    "dateFormats" : [ ],
+    "params" : [ ],
+    "bufferDocsForSolr" : true,
+    "allowBlacklistedRequestParameters" : false,
+    "type" : "solr-index",
+    "skip" : false
+  } ],
+  "properties" : { }
+}

@@ -1,0 +1,12 @@
+{
+  "id" : "movies_csv-test_RnD",
+  "connector" : "lucid.fileupload",
+  "type" : "fileupload",
+  "pipeline" : "test_RnD-smart-answers",
+  "parserId" : "movies_csv-test_RnD",
+  "properties" : {
+    "collection" : "test_RnD",
+    "fileId" : "movies.csv",
+    "mediaType" : "application/octet-stream"
+  }
+}

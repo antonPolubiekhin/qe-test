@@ -1,0 +1,77 @@
+{
+  "id" : "test_RnD",
+  "stages" : [ {
+    "id" : "229d0ae6-c5b5-4176-8454-0d4157900097",
+    "translationMappings" : [ {
+      "source" : "genres",
+      "target" : "genres_ss",
+      "operation" : "move"
+    }, {
+      "source" : "movieId",
+      "target" : "id",
+      "operation" : "copy"
+    }, {
+      "source" : "title",
+      "target" : "title_txt",
+      "operation" : "move"
+    } ],
+    "retentionMappings" : [ ],
+    "updateMappings" : [ ],
+    "unmappedRule" : {
+      "keep" : true,
+      "delete" : false,
+      "fieldToMoveValuesTo" : "",
+      "fieldToCopyValuesTo" : "",
+      "valueToAddToUnmappedFields" : "",
+      "valueToSetOnUnmappedFields" : ""
+    },
+    "reservedFieldsMappingAllowed" : false,
+    "type" : "field-mapping",
+    "skip" : false
+  }, {
+    "id" : "q6r",
+    "rules" : [ {
+      "source" : [ "genres_ss" ],
+      "target" : "genres_ss",
+      "writeMode" : "overwrite",
+      "pattern" : "[^|\\s][^\\|]*[^|\\s]*",
+      "returnIfNoMatch" : "input_string",
+      "group" : 0
+    }, {
+      "source" : [ "title_txt" ],
+      "target" : "year_i",
+      "writeMode" : "append",
+      "pattern" : "\\(([0-9]+)\\)$",
+      "returnIfNoMatch" : "null",
+      "group" : 1
+    }, {
+      "source" : [ "title_txt" ],
+      "target" : "title_txt",
+      "writeMode" : "overwrite",
+      "pattern" : "^(.+)\\s\\(([0-9]+)\\)$",
+      "returnIfNoMatch" : "null",
+      "group" : 1
+    } ],
+    "type" : "regex-extractor",
+    "skip" : false
+  }, {
+    "id" : "86bbb640-5c2c-4cd1-93e6-cf80709e1621",
+    "duplicateSingleValuedFields" : false,
+    "fieldsToExclude" : [ ],
+    "advancedTextFieldsIndexing" : true,
+    "maxTextLengthForAdvancedIndexing" : 100,
+    "type" : "solr-dynamic-field-name-mapping",
+    "skip" : false
+  }, {
+    "id" : "c3222ed8-b99d-47dd-87c8-8daf769695dd",
+    "enforceSchema" : true,
+    "fieldsList" : true,
+    "dateFormats" : [ ],
+    "params" : [ ],
+    "bufferDocsForSolr" : true,
+    "allowBlacklistedRequestParameters" : false,
+    "type" : "solr-index",
+    "skip" : false
+  } ],
+  "properties" : { }
+}

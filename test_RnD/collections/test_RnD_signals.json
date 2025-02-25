@@ -1,0 +1,15 @@
+{
+  "id" : "test_RnD_signals",
+  "searchClusterId" : "default",
+  "commitWithin" : 10,
+  "features" : { },
+  "solrParams" : {
+    "name" : "test_RnD_signals",
+    "numShards" : 2,
+    "replicationFactor" : 2,
+    "configTemplate" : "solr/conf/insights.zip"
+  },
+  "type" : "SIGNALS",
+  "relatedCollectionId" : "test_RnD",
+  "metadata" : { }
+}

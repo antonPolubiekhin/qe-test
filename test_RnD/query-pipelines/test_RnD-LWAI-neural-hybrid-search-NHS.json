@@ -1,0 +1,140 @@
+{
+  "id" : "test_RnD-LWAI-neural-hybrid-search-NHS",
+  "stages" : [ {
+    "id" : "6e5bd8bc-8cfd-4059-845b-30ebaa32b232",
+    "paramToTag" : "q",
+    "spell_corrections_enabled" : true,
+    "phrase_boosting_enabled" : true,
+    "tail_rewrites_enabled" : true,
+    "phraseBoost" : 2.0,
+    "phraseSlop" : 10,
+    "synonymExpansionBoost" : 2.0,
+    "synonym_expansion_enabled" : true,
+    "remove_words_enabled" : true,
+    "overlaps" : "longest_dominant_right",
+    "params" : [ ],
+    "maxWaitMs" : 500,
+    "type" : "text-tagger",
+    "skip" : false
+  }, {
+    "id" : "c0f3d6af-2723-4793-ac2c-db2723d732cc",
+    "numRecommendations" : 10,
+    "numSignals" : 100,
+    "aggrType" : "click@doc_id,filters,query",
+    "boostId" : "id",
+    "boostingMethod" : "query-param",
+    "boostingParam" : "boost",
+    "queryParams" : [ {
+      "key" : "qf",
+      "value" : "query_t"
+    }, {
+      "key" : "pf",
+      "value" : "query_t^50"
+    }, {
+      "key" : "pf",
+      "value" : "query_t~3^20"
+    }, {
+      "key" : "pf2",
+      "value" : "query_t^20"
+    }, {
+      "key" : "pf2",
+      "value" : "query_t~3^10"
+    }, {
+      "key" : "pf3",
+      "value" : "query_t^10"
+    }, {
+      "key" : "pf3",
+      "value" : "query_t~3^5"
+    }, {
+      "key" : "boost",
+      "value" : "map(query({!field f=query_s v=$q}),0,0,1,20)"
+    }, {
+      "key" : "mm",
+      "value" : "50%"
+    }, {
+      "key" : "defType",
+      "value" : "edismax"
+    }, {
+      "key" : "sort",
+      "value" : "score desc, weight_d desc"
+    }, {
+      "key" : "fq",
+      "value" : "weight_d:[* TO *]"
+    } ],
+    "rollupField" : "doc_id_s",
+    "rollupWeightField" : "weight_d",
+    "weightExpression" : "math:log(weight_d + 1) + 10 * math:log(score+1)",
+    "rollupWeightStrategy" : "max",
+    "queryParamToBoost" : "q",
+    "includeEnrichedQuery" : false,
+    "type" : "recommendation",
+    "skip" : false
+  }, {
+    "id" : "7a70ce2a-aadd-4301-8f6b-2eb6f56227f5",
+    "rows" : 10,
+    "start" : 0,
+    "sortOrder" : [ ],
+    "queryFields" : [ ],
+    "returnFields" : [ ],
+    "returnScore" : false,
+    "type" : "search-fields",
+    "skip" : false
+  }, {
+    "id" : "92a6de93-7c2f-4f13-9280-1ca2011830ce",
+    "fieldFacets" : [ ],
+    "rangeFacets" : [ ],
+    "type" : "facet",
+    "skip" : false
+  }, {
+    "id" : "124745e7-d4cf-49bf-bc72-b0ac312339d5",
+    "accountName" : "change-me",
+    "modelType" : "change-me",
+    "queryInput" : "<request.params.q>",
+    "useCaseConfig" : [ ],
+    "modelConfig" : [ ],
+    "outputContextVariable" : "vector",
+    "failOnError" : false,
+    "type" : "query-vectorization-ml-platform",
+    "skip" : false
+  }, {
+    "id" : "e0b9ee5a-f2ea-40dd-bbe9-44835046041d",
+    "lexicalQuery" : "<request.params.q>",
+    "lexicalWeight" : 0.3,
+    "lexicalDepth" : 1000,
+    "vectorQueryField" : "change_me",
+    "vector" : "<ctx.vector>",
+    "vectorWeight" : 0.7,
+    "knn" : {
+      "vectorDepth" : 1000
+    },
+    "type" : "vector-hybrid-search",
+    "skip" : false
+  }, {
+    "id" : "95980fd4-2f39-4f0b-beb5-f6e1322b36ad",
+    "useOriginalQueryIfNoRulesMatch" : true,
+    "matchPartialFilterQueries" : true,
+    "handler" : "select",
+    "method" : "POST",
+    "ruleLimit" : "100",
+    "params" : [ ],
+    "hierarchicalFilter" : [ ],
+    "headers" : [ ],
+    "maxWaitMs" : 500,
+    "type" : "query-rules",
+    "skip" : false
+  }, {
+    "id" : "3398aebb-2301-4197-af00-c0f3124fa30e",
+    "httpMethod" : "POST",
+    "allowFederatedSearch" : false,
+    "preferredReplicaType" : "pull",
+    "type" : "solr-query",
+    "skip" : false,
+    "responseSignalsEnabled" : true
+  }, {
+    "id" : "a08dd58b-edc1-44d8-89a3-b4f9e48def90",
+    "facetLabelParseDelimiter" : "||",
+    "type" : "query-rules-augment-response",
+    "skip" : false
+  } ],
+  "properties" : { }
+}

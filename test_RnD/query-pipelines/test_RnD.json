@@ -1,0 +1,155 @@
+{
+  "id" : "test_RnD",
+  "stages" : [ {
+    "id" : "la",
+    "params" : [ {
+      "key" : "facet.range",
+      "value" : "year_i",
+      "policy" : "append"
+    }, {
+      "key" : "facet.range.start",
+      "value" : "1900",
+      "policy" : "append"
+    }, {
+      "key" : "facet.range.end",
+      "value" : "2020",
+      "policy" : "append"
+    }, {
+      "key" : "facet.range.gap",
+      "value" : "10",
+      "policy" : "append"
+    }, {
+      "key" : "facet.range.include",
+      "value" : "outer",
+      "policy" : "append"
+    } ],
+    "type" : "set-params",
+    "skip" : false
+  }, {
+    "id" : "bb5fd78d-3118-4088-8533-e1dc2056c3f5",
+    "paramToTag" : "q",
+    "spell_corrections_enabled" : true,
+    "phrase_boosting_enabled" : true,
+    "tail_rewrites_enabled" : true,
+    "phraseBoost" : 2.0,
+    "phraseSlop" : 10,
+    "synonymExpansionBoost" : 2.0,
+    "synonym_expansion_enabled" : true,
+    "remove_words_enabled" : true,
+    "overlaps" : "longest_dominant_right",
+    "params" : [ ],
+    "maxWaitMs" : 500,
+    "type" : "text-tagger",
+    "skip" : false
+  }, {
+    "id" : "c189e922-4201-4cdd-8032-7d42aaa16920",
+    "numRecommendations" : 10,
+    "numSignals" : 100,
+    "aggrType" : "click@doc_id,filters,query",
+    "boostId" : "id",
+    "boostingMethod" : "query-param",
+    "boostingParam" : "boost",
+    "queryParams" : [ {
+      "key" : "qf",
+      "value" : "query_t"
+    }, {
+      "key" : "pf",
+      "value" : "query_t^50"
+    }, {
+      "key" : "pf",
+      "value" : "query_t~3^20"
+    }, {
+      "key" : "pf2",
+      "value" : "query_t^20"
+    }, {
+      "key" : "pf2",
+      "value" : "query_t~3^10"
+    }, {
+      "key" : "pf3",
+      "value" : "query_t^10"
+    }, {
+      "key" : "pf3",
+      "value" : "query_t~3^5"
+    }, {
+      "key" : "boost",
+      "value" : "map(query({!field f=query_s v=$q}),0,0,1,20)"
+    }, {
+      "key" : "mm",
+      "value" : "50%"
+    }, {
+      "key" : "defType",
+      "value" : "edismax"
+    }, {
+      "key" : "sort",
+      "value" : "score desc, weight_d desc"
+    }, {
+      "key" : "fq",
+      "value" : "weight_d:[* TO *]"
+    } ],
+    "rollupField" : "doc_id_s",
+    "rollupWeightField" : "weight_d",
+    "weightExpression" : "math:log(weight_d + 1) + 10 * math:log(score+1)",
+    "rollupWeightStrategy" : "max",
+    "queryParamToBoost" : "q",
+    "includeEnrichedQuery" : false,
+    "type" : "recommendation",
+    "skip" : false
+  }, {
+    "id" : "c04a5d27-9964-4eb0-ab20-498e91225d91",
+    "rows" : 10,
+    "start" : 0,
+    "sortOrder" : [ ],
+    "queryFields" : [ {
+      "field" : "title_txt"
+    }, {
+      "field" : "year_i"
+    } ],
+    "returnFields" : [ ],
+    "returnScore" : false,
+    "type" : "search-fields",
+    "skip" : false
+  }, {
+    "id" : "24ca86b6-8785-4fd0-8f94-2781456104b9",
+    "fieldFacets" : [ {
+      "field" : "genres_ss",
+      "limit" : 100,
+      "minCount" : 1,
+      "missing" : false
+    } ],
+    "rangeFacets" : [ ],
+    "type" : "facet",
+    "skip" : false,
+    "properties" : {
+      "autoCreated" : true
+    }
+  }, {
+    "id" : "9a3abb22-f920-4446-ac1b-b2602bfe52a4",
+    "useOriginalQueryIfNoRulesMatch" : true,
+    "matchPartialFilterQueries" : true,
+    "handler" : "select",
+    "method" : "POST",
+    "ruleLimit" : "100",
+    "params" : [ ],
+    "hierarchicalFilter" : [ ],
+    "headers" : [ ],
+    "maxWaitMs" : 500,
+    "type" : "query-rules",
+    "skip" : false
+  }, {
+    "id" : "089e165e-02bf-45fa-ad2f-2e48c742a41b",
+    "httpMethod" : "POST",
+    "allowFederatedSearch" : false,
+    "preferredReplicaType" : "pull",
+    "type" : "solr-query",
+    "skip" : false,
+    "responseSignalsEnabled" : true
+  }, {
+    "id" : "c49faa41-6b29-4f7f-bc20-9441514eb05e",
+    "facetLabelParseDelimiter" : "||",
+    "type" : "query-rules-augment-response",
+    "skip" : false
+  } ],
+  "properties" : {
+    "supportedMode" : "all"
+  }
+}

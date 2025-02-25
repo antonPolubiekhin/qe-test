@@ -1,0 +1,46 @@
+{
+  "id" : "test_RnD-smart-answers",
+  "stages" : [ {
+    "id" : "3f8cfaa9-0319-4155-a2bf-f677782a21a2",
+    "rows" : 10,
+    "start" : 0,
+    "sortOrder" : [ ],
+    "queryFields" : [ ],
+    "returnFields" : [ ],
+    "returnScore" : false,
+    "type" : "search-fields",
+    "skip" : false
+  }, {
+    "id" : "dba7c8d5-f99b-45e0-bebf-ea77d39cc953",
+    "modelId" : "qna-coldstart-large",
+    "modelOutputVector" : "vector",
+    "milvusResultsContextKey" : "milvus_results",
+    "milvusVectorsCollection" : "milvus_collection",
+    "milvusNumResults" : 10,
+    "milvusSearchParams" : [ ],
+    "failOnError" : true,
+    "type" : "milvus-query-stage",
+    "skip" : false
+  }, {
+    "id" : "63f1c889-5d62-4339-8e6c-c31fa8252c40",
+    "ensembleExpression" : "1.0 * milvus_results",
+    "resultFieldName" : "ensemble_score",
+    "failOnError" : false,
+    "type" : "milvus-ensemble-query-stage",
+    "skip" : false
+  }, {
+    "id" : "e2a15c81-946c-47c4-8477-0e9a33dc7b5d",
+    "httpMethod" : "POST",
+    "allowFederatedSearch" : false,
+    "preferredReplicaType" : "pull",
+    "type" : "solr-query",
+    "skip" : false,
+    "responseSignalsEnabled" : true
+  }, {
+    "id" : "34cf1a99-3356-4a63-9c02-ddf9b647fe2f",
+    "failOnError" : false,
+    "type" : "milvus-response-update-stage",
+    "skip" : false
+  } ],
+  "properties" : { }
+}

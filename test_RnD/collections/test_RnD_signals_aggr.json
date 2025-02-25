@@ -1,0 +1,14 @@
+{
+  "id" : "test_RnD_signals_aggr",
+  "searchClusterId" : "default",
+  "commitWithin" : 10,
+  "features" : { },
+  "solrParams" : {
+    "name" : "test_RnD_signals_aggr",
+    "numShards" : 1,
+    "replicationFactor" : 2
+  },
+  "type" : "SIGNALS_AGGREGATION",
+  "relatedCollectionId" : "test_RnD",
+  "metadata" : { }
+}

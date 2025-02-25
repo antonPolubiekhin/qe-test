@@ -1,0 +1,52 @@
+{
+  "id" : "test_RnD-smart-answers",
+  "stages" : [ {
+    "id" : "f08db53b-fa04-44cb-99e9-1b8d5f24635b",
+    "translationMappings" : [ {
+      "source" : "title",
+      "target" : "title_txt",
+      "operation" : "move"
+    } ],
+    "retentionMappings" : [ ],
+    "updateMappings" : [ ],
+    "unmappedRule" : {
+      "keep" : true,
+      "delete" : false,
+      "fieldToMoveValuesTo" : "",
+      "fieldToCopyValuesTo" : "",
+      "valueToAddToUnmappedFields" : "",
+      "valueToSetOnUnmappedFields" : ""
+    },
+    "reservedFieldsMappingAllowed" : false,
+    "type" : "field-mapping",
+    "skip" : false
+  }, {
+    "id" : "ed924eb5-16af-4fbd-83c4-7e78356c4ef2",
+    "duplicateSingleValuedFields" : false,
+    "fieldsToExclude" : [ ],
+    "advancedTextFieldsIndexing" : true,
+    "maxTextLengthForAdvancedIndexing" : 100,
+    "type" : "solr-dynamic-field-name-mapping",
+    "skip" : false
+  }, {
+    "id" : "24c86851-0fd0-4f25-a8cc-3e2e9458d588",
+    "modelId" : "qna-coldstart-large",
+    "failOnError" : true,
+    "fieldToEncode" : "title_txt",
+    "modelOutputVector" : "vector",
+    "milvusCollection" : "milvus_collection",
+    "type" : "model-to-milvus",
+    "skip" : false
+  }, {
+    "id" : "27d4d500-6b72-4bde-8862-7144ab0aba31",
+    "enforceSchema" : true,
+    "fieldsList" : false,
+    "dateFormats" : [ ],
+    "params" : [ ],
+    "bufferDocsForSolr" : true,
+    "allowBlacklistedRequestParameters" : false,
+    "type" : "solr-index",
+    "skip" : false
+  } ],
+  "properties" : { }
+}

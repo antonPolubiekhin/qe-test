@@ -1,0 +1,14 @@
+{
+  "id" : "test_RnD_job_reports",
+  "searchClusterId" : "default",
+  "commitWithin" : 10000,
+  "features" : { },
+  "solrParams" : {
+    "name" : "test_RnD_job_reports",
+    "numShards" : 1,
+    "replicationFactor" : 1
+  },
+  "type" : "JOB_REPORTS",
+  "relatedCollectionId" : "test_RnD",
+  "metadata" : { }
+}

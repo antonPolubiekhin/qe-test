@@ -1,0 +1,15 @@
+{
+  "id" : "test_RnD_query_rewrite_staging",
+  "stages" : [ {
+    "id" : "0183f75c-d3b7-470a-9d74-0ea1b1afd809",
+    "enforceSchema" : true,
+    "fieldsList" : false,
+    "dateFormats" : [ ],
+    "params" : [ ],
+    "bufferDocsForSolr" : true,
+    "allowBlacklistedRequestParameters" : false,
+    "type" : "solr-index",
+    "skip" : false
+  } ],
+  "properties" : { }
+}
